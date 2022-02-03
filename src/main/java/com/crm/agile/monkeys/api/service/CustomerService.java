@@ -19,7 +19,7 @@ public class CustomerService {
         return this.customerRepository.findById(id);
     }
 
-    public Customer createUpdateCustomer(Customer customer) {
+    public Customer createOrUpdateCustomer(Customer customer) {
         return this.customerRepository.save(customer);
     }
 
