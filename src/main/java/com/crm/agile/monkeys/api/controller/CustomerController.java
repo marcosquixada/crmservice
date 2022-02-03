@@ -1,5 +1,6 @@
 package com.crm.agile.monkeys.api.controller;
 
+import com.crm.agile.monkeys.api.dto.CustomerDto;
 import com.crm.agile.monkeys.api.model.Customer;
 import com.crm.agile.monkeys.api.service.CustomerService;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
@@ -27,4 +30,16 @@ public class CustomerController {
         Pageable pageable = PageRequest.of(page, size);
         return this.customerService.findAll(pageable);
     }
+
+    @GetMapping("/{id}")
+    public CustomerDto getCustomer(@PathVariable Long id){
+        //log.info("Listing customers: {}", "");
+        Customer customer = customerService.findById(id).get();
+        CustomerDto dto = CustomerDto.builder()
+                .name(customer.getName())
+                .build();
+        return dto;
+    }
+
+
 }
